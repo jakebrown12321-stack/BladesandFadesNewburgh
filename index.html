@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blades and Fades | Newburgh, IN</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood: #8b0000;
+      --gold: #b8972a;
+      --gold-light: #d4af5a;
+      --bone: #e8dcc8;
+      --dark: #0a0a0a;
+      --panel: #0f0f0f;
+      --mid: #1a1510;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Crimson Text', Georgia, serif;
+      background: var(--dark);
+      color: var(--bone);
+      overflow-x: hidden;
+    }
+
+    /* ─── Decorative SVG border reusable ─── */
+    .gothic-rule {
+      width: 100%;
+      height: 18px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px, transparent 18px,
+          var(--gold) 18px, var(--gold) 20px
+        ),
+        linear-gradient(var(--gold), var(--gold));
+      -webkit-mask:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='18'%3E%3Cpolygon points='20,0 40,18 0,18' fill='black'/%3E%3C/svg%3E") repeat-x center/40px 18px;
+      mask:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='18'%3E%3Cpolygon points='20,0 40,18 0,18' fill='black'/%3E%3C/svg%3E") repeat-x center/40px 18px;
+      opacity: 0.7;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: var(--dark);
+      position: relative;
+      padding: 0;
+      overflow: hidden;
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .header-inner {
+      padding: 32px 20px 24px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Stone texture overlay */
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(139,0,0,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(139,0,0,0.08) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px);
+      pointer-events: none;
+    }
+
+    /* Arch decorations */
+    header::after {
+      content: '✦  ✦  ✦';
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--blood);
+      font-size: 0.65em;
+      letter-spacing: 12px;
+    }
+
+    header h1 {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: clamp(2.6em, 7vw, 5em);
+      color: var(--gold-light);
+      letter-spacing: 4px;
+      text-shadow:
+        0 0 40px rgba(184,151,42,0.5),
+        2px 2px 0 rgba(0,0,0,0.8),
+        0 0 80px rgba(139,0,0,0.3);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .header-sub {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7em;
+      letter-spacing: 8px;
+      color: var(--blood);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-family: 'Cinzel', serif;
+      color: var(--bone);
+      padding: 8px 28px;
+      text-decoration: none;
+      font-size: 0.75em;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border: 1px solid rgba(184,151,42,0.25);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+      background: rgba(139,0,0,0.2);
+      border-color: var(--blood);
+    }
+
+    /* ─── HERO / LOGO ─── */
+    .logo-section {
+      background:
+        radial-gradient(ellipse at center top, rgba(139,0,0,0.25) 0%, transparent 65%),
+        radial-gradient(ellipse at center bottom, rgba(0,0,0,0.9) 0%, transparent 80%),
+        var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Vertical chain-like lines */
+    .logo-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0%, transparent calc(50% - 1px),
+          rgba(184,151,42,0.04) calc(50% - 1px),
+          rgba(184,151,42,0.04) 50%,
+          transparent 50%
+        );
+      pointer-events: none;
+    }
+
+    .logo-section img {
+      max-width: min(80%, 900px);
+      height: auto;
+      filter:
+        drop-shadow(0 0 30px rgba(184,151,42,0.4))
+        drop-shadow(0 0 60px rgba(139,0,0,0.3));
+      animation: logoGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes logoGlow {
+      from { filter: drop-shadow(0 0 20px rgba(184,151,42,0.3)) drop-shadow(0 0 40px rgba(139,0,0,0.2)); }
+      to   { filter: drop-shadow(0 0 50px rgba(184,151,42,0.7)) drop-shadow(0 0 80px rgba(139,0,0,0.4)); }
+    }
+
+    /* ─── DIVIDER ─── */
+    .ornament-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px 40px;
+      color: var(--gold);
+    }
+
+    .ornament-divider::before,
+    .ornament-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .ornament-divider span {
+      font-size: 1.4em;
+      letter-spacing: 8px;
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4em, 3vw, 2em);
+      font-weight: 900;
+      color: var(--gold-light);
+      text-align: center;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 2px;
+      background: var(--blood);
+      margin: 10px auto 0;
+      box-shadow: 0 0 10px var(--blood);
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--panel);
+      max-width: 100%;
+      border-top: 1px solid rgba(184,151,42,0.15);
+      border-bottom: 1px solid rgba(184,151,42,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #about::before {
+      content: '†';
+      position: absolute;
+      top: -20px;
+      left: 5%;
+      font-size: 12em;
+      color: rgba(139,0,0,0.04);
+      pointer-events: none;
+      font-family: serif;
+    }
+
+    #about::after {
+      content: '†';
+      position: absolute;
+      bottom: -20px;
+      right: 5%;
+      font-size: 12em;
+      color: rgba(139,0,0,0.04);
+      pointer-events: none;
+      font-family: serif;
+    }
+
+    #about .inner {
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    #about p {
+      font-size: 1.2em;
+      line-height: 1.9;
+      color: #c8bfaf;
+      font-style: italic;
+    }
+
+    /* ─── SERVICES ─── */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2px;
+    }
+
+    .service {
+      background: var(--panel);
+      padding: 36px 24px;
+      border: 1px solid rgba(184,151,42,0.12);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      text-align: center;
+    }
+
+    .service::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blood), var(--gold), var(--blood));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service:hover {
+      border-color: rgba(184,151,42,0.4);
+      transform: translateY(-4px);
+    }
+
+    .service:hover::before { opacity: 1; }
+
+    .service-icon {
+      font-size: 2em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .service h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95em;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+
+    .service p {
+      font-size: 1em;
+      color: #9a9080;
+      line-height: 1.7;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      max-width: 100%;
+      background:
+        radial-gradient(ellipse at center, rgba(139,0,0,0.06) 0%, transparent 70%),
+        var(--mid);
+      padding: 60px 20px;
+      border-top: 1px solid rgba(184,151,42,0.15);
+    }
+
+    #contact .inner {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 680px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contact-item {
+      border-left: 2px solid var(--blood);
+      padding-left: 16px;
+    }
+
+    .contact-item strong {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7em;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contact-item span {
+      color: var(--bone);
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    .map-wrap {
+      border: 1px solid rgba(184,151,42,0.25);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .map-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 300px;
+      border: 0;
+      filter: grayscale(60%) sepia(30%) contrast(1.1);
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 13px 32px;
+      background: transparent;
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75em;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--blood);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+
+    .btn:hover { border-color: var(--blood); color: var(--bone); }
+    .btn:hover::before { transform: scaleX(1); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: var(--dark);
+      border-top: 1px solid rgba(184,151,42,0.3);
+      position: relative;
+    }
+
+    footer::before {
+      content: '⚜';
+      display: block;
+      font-size: 1.5em;
+      color: var(--blood);
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65em;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #4a4030;
+    }
+
+    /* ─── SCROLL ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="header-sub">Established · Newburgh, Indiana</div>
+    <h1>Blades and Fades</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- LOGO -->
+<div class="logo-section">
+  <img src="https://i.postimg.cc/L5Fyw65c/neonlogo.png" alt="Blades and Fades Neon Logo">
+</div>
+
+<div class="ornament-divider"><span>⚔ &nbsp; ✦ &nbsp; ⚔</span></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner reveal">
+    <h2>About</h2>
+    <p>
+     I’m Jess, owner of Blades and Fades. Been grinding since 2020, putting in the work, perfecting the craft, and earning the trust of every client who sits in my chair. This isn’t rushed, and it’s not basic. Every cut is dialed in, clean, and styled to whatever you can throw at me.
+No cutting corners. No uneven fades. Just real attention to detail and a standard I don’t break.
+Whether you’re coming in for a fresh fade, a clean-up, or a whole new look! I make sure you walk out sharper than when you came in.
+Come as you are. Leave feeling your best.
+    </p>
+  </div>
+</section>
+
+<div class="ornament-divider"><span>† &nbsp; ✦ &nbsp; †</span></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <h2 class="reveal">Services</h2>
+  <div class="services">
+    <div class="service reveal">
+      <span class="service-icon">✂</span>
+      <h3>Haircuts</h3>
+      <p>From classic modern cuts to edgy styles.</p>
+    </div>
+    <div class="service reveal">
+      <span class="service-icon">◈</span>
+      <h3>Waxing</h3>
+      <p>Eyebrow, lip, nose, ear.</p>
+    </div>
+    <div class="service reveal">
+      <span class="service-icon">⚔</span>
+      <h3>Beard Grooming</h3>
+      <p>Sharp lines, trims, and full beard shaping.</p>
+    </div>
+    <div class="service reveal">
+      <span class="service-icon">⚜</span>
+      <h3>Washing and Styling</h3>
+      <p>Relax with a shampoo and styling with Reuzel pomade.</p>
+    </div>
+  </div>
+</section>
+
+<div class="ornament-divider"><span>⚔ &nbsp; ✦ &nbsp; ⚔</span></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <h2 class="reveal">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-details reveal">
+        <div class="contact-item">
+          <strong>Location</strong>
+          <span>4944 Old State Rte 261, Suite 19<br>Newburgh, IN 47630</span>
+        </div>
+        <div class="contact-item">
+          <strong>Phone</strong>
+          <span>812.306.1280</span>
+        </div>
+        <div class="contact-item">
+          <strong>Hours</strong>
+          <span>
+            Monday &amp; Saturday: 9am – 3pm<br>
+            Tuesday &amp; Friday: 2pm – 7pm
+          </span>
+        </div>
+        <div>
+          <a href="https://bladesandfadesbarbershop.square.site/" class="btn" target="_blank">
+            Book Appointment
+          </a>
+          <br>
+          <a href="https://maps.google.com/?q=4944+Old+State+Rte+261+Suite+19,+Newburgh,+IN+47630" target="_blank" class="btn">
+            Get Directions
+          </a>
+        </div>
+      </div>
+
+      <div class="map-wrap reveal">
+        <iframe
+          src="https://maps.google.com/maps?q=4944%20Old%20State%20Rte%20261%20Suite%2019,%20Newburgh,%20IN%2047630&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Blades and Fades. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
