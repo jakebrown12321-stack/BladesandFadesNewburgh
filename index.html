@@ -7,13 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --blood: #8b0000;
+      --purple: #6a0dad;
+      --purple-bright: #9b30ff;
+      --purple-glow: rgba(106,13,173,0.5);
       --gold: #b8972a;
       --gold-light: #d4af5a;
-      --bone: #e8dcc8;
-      --dark: #0a0a0a;
-      --panel: #0f0f0f;
-      --mid: #1a1510;
+      --bone: #ede0ff;
+      --dark: #080808;
+      --panel: #0d0a12;
+      --mid: #110d1a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,8 +69,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 20% 50%, rgba(139,0,0,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 50%, rgba(139,0,0,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 50%, rgba(106,13,173,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(106,13,173,0.1) 0%, transparent 60%),
         repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px);
       pointer-events: none;
     }
@@ -80,7 +82,7 @@
       bottom: 8px;
       left: 50%;
       transform: translateX(-50%);
-      color: var(--blood);
+      color: var(--purple-bright);
       font-size: 0.65em;
       letter-spacing: 12px;
     }
@@ -93,7 +95,7 @@
       text-shadow:
         0 0 40px rgba(184,151,42,0.5),
         2px 2px 0 rgba(0,0,0,0.8),
-        0 0 80px rgba(139,0,0,0.3);
+        0 0 80px rgba(106,13,173,0.5);
       line-height: 1;
       margin-bottom: 4px;
     }
@@ -102,7 +104,7 @@
       font-family: 'Cinzel', serif;
       font-size: 0.7em;
       letter-spacing: 8px;
-      color: var(--blood);
+      color: var(--purple-bright);
       text-transform: uppercase;
       margin-bottom: 18px;
     }
@@ -127,16 +129,30 @@
       position: relative;
     }
 
+    nav a.nav-book {
+      background: var(--purple);
+      color: var(--gold-light);
+      border-color: var(--purple-bright);
+      box-shadow: 0 0 12px var(--purple-glow);
+    }
+
+    nav a.nav-book:hover {
+      background: var(--purple-bright);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 0 22px var(--purple-glow);
+    }
+
     nav a:hover {
       color: var(--gold-light);
-      background: rgba(139,0,0,0.2);
-      border-color: var(--blood);
+      background: rgba(106,13,173,0.25);
+      border-color: var(--purple);
     }
 
     /* ─── HERO / LOGO ─── */
     .logo-section {
       background:
-        radial-gradient(ellipse at center top, rgba(139,0,0,0.25) 0%, transparent 65%),
+        radial-gradient(ellipse at center top, rgba(106,13,173,0.3) 0%, transparent 65%),
         radial-gradient(ellipse at center bottom, rgba(0,0,0,0.9) 0%, transparent 80%),
         var(--dark);
       display: flex;
@@ -174,8 +190,8 @@
     }
 
     @keyframes logoGlow {
-      from { filter: drop-shadow(0 0 20px rgba(184,151,42,0.3)) drop-shadow(0 0 40px rgba(139,0,0,0.2)); }
-      to   { filter: drop-shadow(0 0 50px rgba(184,151,42,0.7)) drop-shadow(0 0 80px rgba(139,0,0,0.4)); }
+      from { filter: drop-shadow(0 0 20px rgba(184,151,42,0.3)) drop-shadow(0 0 40px rgba(106,13,173,0.3)); }
+      to   { filter: drop-shadow(0 0 50px rgba(184,151,42,0.7)) drop-shadow(0 0 80px rgba(155,48,255,0.6)); }
     }
 
     /* ─── DIVIDER ─── */
@@ -225,9 +241,9 @@
       display: block;
       width: 80px;
       height: 2px;
-      background: var(--blood);
+      background: var(--purple);
       margin: 10px auto 0;
-      box-shadow: 0 0 10px var(--blood);
+      box-shadow: 0 0 10px var(--purple-bright);
     }
 
     /* ─── ABOUT ─── */
@@ -246,7 +262,7 @@
       top: -20px;
       left: 5%;
       font-size: 12em;
-      color: rgba(139,0,0,0.04);
+      color: rgba(106,13,173,0.06);
       pointer-events: none;
       font-family: serif;
     }
@@ -257,7 +273,7 @@
       bottom: -20px;
       right: 5%;
       font-size: 12em;
-      color: rgba(139,0,0,0.04);
+      color: rgba(106,13,173,0.06);
       pointer-events: none;
       font-family: serif;
     }
@@ -273,7 +289,7 @@
     #about p {
       font-size: 1.2em;
       line-height: 1.9;
-      color: #c8bfaf;
+      color: #c0b0d8;
       font-style: italic;
     }
 
@@ -299,7 +315,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--blood), var(--gold), var(--blood));
+      background: linear-gradient(90deg, var(--purple), var(--gold), var(--purple));
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -328,7 +344,7 @@
 
     .service p {
       font-size: 1em;
-      color: #9a9080;
+      color: #8a7898;
       line-height: 1.7;
     }
 
@@ -336,7 +352,7 @@
     #contact {
       max-width: 100%;
       background:
-        radial-gradient(ellipse at center, rgba(139,0,0,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse at center, rgba(106,13,173,0.08) 0%, transparent 70%),
         var(--mid);
       padding: 60px 20px;
       border-top: 1px solid rgba(184,151,42,0.15);
@@ -366,7 +382,7 @@
     }
 
     .contact-item {
-      border-left: 2px solid var(--blood);
+      border-left: 2px solid var(--purple-bright);
       padding-left: 16px;
     }
 
@@ -422,14 +438,14 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--blood);
+      background: var(--purple);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s ease;
       z-index: -1;
     }
 
-    .btn:hover { border-color: var(--blood); color: var(--bone); }
+    .btn:hover { border-color: var(--purple-bright); color: var(--bone); }
     .btn:hover::before { transform: scaleX(1); }
 
     /* ─── FOOTER ─── */
@@ -437,7 +453,7 @@
       text-align: center;
       padding: 30px 20px;
       background: var(--dark);
-      border-top: 1px solid rgba(184,151,42,0.3);
+      border-top: 1px solid rgba(155,48,255,0.3);
       position: relative;
     }
 
@@ -445,7 +461,7 @@
       content: '⚜';
       display: block;
       font-size: 1.5em;
-      color: var(--blood);
+      color: var(--purple-bright);
       margin-bottom: 10px;
     }
 
@@ -454,7 +470,7 @@
       font-size: 0.65em;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: #4a4030;
+      color: #5a3a7a;
     }
 
     /* ─── SCROLL ANIMATION ─── */
@@ -480,6 +496,7 @@
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#contact">Contact</a>
+      <a href="https://bladesandfadesbarbershop.square.site/" target="_blank" class="nav-book">Book Now</a>
     </nav>
   </div>
 </header>
@@ -496,7 +513,7 @@
   <div class="inner reveal">
     <h2>About</h2>
     <p>
-     I’m Jess, owner of Blades and Fades. Been grinding since 2020, putting in the work, perfecting the craft, and earning the trust of every client who sits in my chair. This isn’t rushed, and it’s not basic. Every cut is dialed in, clean, and styled to whatever you can throw at me.
+        I’m Jess, owner of Blades and Fades. Been grinding since 2020, putting in the work, perfecting the craft, and earning the trust of every client who sits in my chair. This isn’t rushed, and it’s not basic. Every cut is dialed in, clean, and styled to whatever you can throw at me.
 No cutting corners. No uneven fades. Just real attention to detail and a standard I don’t break.
 Whether you’re coming in for a fresh fade, a clean-up, or a whole new look! I make sure you walk out sharper than when you came in.
 Come as you are. Leave feeling your best.
